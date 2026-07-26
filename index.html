@@ -1,8 +1,5 @@
-Here is your complete, clean, and fully integrated **index.html** file.
-### Key Improvements Made:
- 1. **Fixed Broken Script Syntax:** Replaced the broken/misplaced script blocks at the bottom with a clean <script src="theme-switcher.js"></script> tag and isolated inline scripts.
- 2. **Added User Theme Selector:** Added a dropdown selector right in the top navigation bar (<select id="themeSelector">) so users can toggle between themes on demand.
- 3. **Persisted Theme Support:** The dropdown directly communicates with theme-switcher.js to dynamically insert or remove modern-theme.css and remember the choice via localStorage.
+Here is your complete, updated **index.html** file.
+The CSS variables for modern-theme.css are now built **directly inside the main <style> block** using a .theme-modern class override on the <body>. The dropdown selector is hooked up to toggle this theme seamlessly and save the preference in localStorage without needing external CSS loading dependencies!
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +19,7 @@ Here is your complete, clean, and fully integrated **index.html** file.
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
+    /* Default / Classic Warrior Theme Variables */
     :root{
       --void:#0B0A08;
       --char:#161310;
@@ -39,9 +37,29 @@ Here is your complete, clean, and fully integrated **index.html** file.
       --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-mono: 'SFMono-Regular', Menlo, Consolas, 'Courier New', monospace;
     }
+
+    /* Modern Theme CSS Overrides */
+    body.theme-modern {
+      --void: #0b0f19;
+      --char: #111827;
+      --panel: #1f2937;
+      --panel2: #374151;
+      --blood: #ef4444;
+      --blood-bright: #f87171;
+      --gold: #3b82f6;
+      --gold-bright: #60a5fa;
+      --bone: #f3f4f6;
+      --ash: #9ca3af;
+      --border: rgba(59, 130, 246, 0.22);
+      --border-strong: rgba(59, 130, 246, 0.45);
+      --font-display: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      --font-mono: "Fira Code", Consolas, Monaco, monospace;
+    }
+
     *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
     html,body{margin:0;padding:0;background:var(--void);color:var(--bone);font-family:var(--font-body);
-      -webkit-font-smoothing:antialiased; overscroll-behavior:none;}
+      -webkit-font-smoothing:antialiased; overscroll-behavior:none; transition: background 0.3s ease, color 0.3s ease;}
     body{
       background:
         radial-gradient(ellipse at top, rgba(138,31,31,0.18), transparent 55%),
@@ -50,6 +68,14 @@ Here is your complete, clean, and fully integrated **index.html** file.
       min-height:100vh;
       padding-bottom:78px;
     }
+
+    body.theme-modern {
+      background: 
+        radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15), transparent 55%),
+        radial-gradient(ellipse at bottom, rgba(17, 24, 39, 0.8), transparent 60%),
+        var(--void);
+    }
+
     ::selection{background:var(--gold); color:var(--void);}
     ::-webkit-scrollbar{width:6px; height:6px;}
     ::-webkit-scrollbar-thumb{background:var(--border-strong); border-radius:4px;}
@@ -65,7 +91,7 @@ Here is your complete, clean, and fully integrated **index.html** file.
       backdrop-filter:blur(6px);
       padding:14px 16px 12px;
     }
-    .brand{display:flex; align-items:center; justify-content:space-between; gap: 8px;}
+    .brand{display:flex; align-items:center; justify-content:space-between; gap:8px;}
     .brand-mark{display:flex; align-items:center; gap:10px;}
     .brand-mark .glyph{font-size:22px; filter:drop-shadow(0 0 6px rgba(201,162,39,0.5));}
     .brand-name{font-family:var(--font-display); font-size:19px; letter-spacing:0.06em; color:var(--gold-bright);}
@@ -108,6 +134,10 @@ Here is your complete, clean, and fully integrated **index.html** file.
       background:var(--char);
       border:1px solid var(--border-strong);
       clip-path:polygon(0 0,100% 0,97% 50%,100% 100%,0 100%,3% 50%);
+    }
+    body.theme-modern .banner-track {
+      border-radius: 8px;
+      clip-path: none;
     }
     .banner-fill{
       height:100%; width:0%;
@@ -302,7 +332,7 @@ Here is your complete, clean, and fully integrated **index.html** file.
       <div class="brand-name">Warrior Scheduler<small>Discipline is the mission</small></div>
     </div>
 
-    <!-- Theme Switcher Dropdown -->
+    <!-- User Theme Selection Control -->
     <select id="themeSelector" onchange="switchTheme(this.value)" style="width: auto; margin: 0; padding: 4px 8px; font-size: 11px;">
       <option value="classic">Classic Theme</option>
       <option value="modern">Modern Theme</option>
@@ -1173,8 +1203,27 @@ function init(){
 init();
 </script>
 
-<!-- EXTERNAL THEME SWITCHER FILE -->
-<script src="theme-switcher.js"></script>
+<!-- THEME SWITCHER FUNCTIONALITY -->
+<script>
+  function switchTheme(themeName) {
+    if (themeName === "modern") {
+      document.body.classList.add("theme-modern");
+    } else {
+      document.body.classList.remove("theme-modern");
+    }
+    localStorage.setItem("warriorThemePreference", themeName);
+  }
+
+  // Restore Theme Preference on Page Load
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedTheme = localStorage.getItem("warriorThemePreference") || "classic";
+    const selector = document.getElementById("themeSelector");
+    if (selector) {
+      selector.value = savedTheme;
+    }
+    switchTheme(savedTheme);
+  });
+</script>
 
 <!-- HELPER & PWA SCRIPTS -->
 <script>
