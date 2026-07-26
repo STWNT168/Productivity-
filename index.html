@@ -1,306 +1,297 @@
+Here is your complete, clean, and fully integrated **index.html** file.
+### Key Improvements Made:
+ 1. **Fixed Broken Script Syntax:** Replaced the broken/misplaced script blocks at the bottom with a clean <script src="theme-switcher.js"></script> tag and isolated inline scripts.
+ 2. **Added User Theme Selector:** Added a dropdown selector right in the top navigation bar (<select id="themeSelector">) so users can toggle between themes on demand.
+ 3. **Persisted Theme Support:** The dropdown directly communicates with theme-switcher.js to dynamically insert or remove modern-theme.css and remember the choice via localStorage.
+```html
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <header class="topbar">
-  <div class="brand">
-    <div class="brand-mark">
-      <span class="glyph">⚔️</span>
-      <div class="brand-name">Warrior Scheduler<small>Discipline is the mission</small></div>
-    </div>
-    
-    <!-- Theme Switcher Selector -->
-    <select id="themeSelector" onchange="applyTheme(this.value)" style="width: auto; margin: 0; padding: 4px 8px; font-size: 11px;">
-      <option value="classic">Classic Theme</option>
-      <option value="modern">Modern Theme</option>
-    </select>
-
-    <div class="rank-seal" id="rankSeal">1</div>
-  </div>
-  </header>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Warrior Scheduler AI</title>
-<meta name="theme-color" content="#0B0A08">
-<meta name="description" content="Warrior Scheduler AI — a disciplined daily mission planner, timer, and tracker.">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Warrior Scheduler">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<style>
-  :root{
-    --void:#0B0A08;
-    --char:#161310;
-    --panel:#1D1812;
-    --panel2:#241D15;
-    --blood:#8A1F1F;
-    --blood-bright:#C23434;
-    --gold:#C9A227;
-    --gold-bright:#EFC957;
-    --bone:#EDE4CC;
-    --ash:#948C79;
-    --border:rgba(201,162,39,0.22);
-    --border-strong:rgba(201,162,39,0.45);
-    --font-display: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --font-mono: 'SFMono-Regular', Menlo, Consolas, 'Courier New', monospace;
-  }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;background:var(--void);color:var(--bone);font-family:var(--font-body);
-    -webkit-font-smoothing:antialiased; overscroll-behavior:none;}
-  body{
-    background:
-      radial-gradient(ellipse at top, rgba(138,31,31,0.18), transparent 55%),
-      radial-gradient(ellipse at bottom, rgba(201,162,39,0.08), transparent 60%),
-      var(--void);
-    min-height:100vh;
-    padding-bottom:78px;
-  }
-  ::selection{background:var(--gold); color:var(--void);}
-  ::-webkit-scrollbar{width:6px; height:6px;}
-  ::-webkit-scrollbar-thumb{background:var(--border-strong); border-radius:4px;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>Warrior Scheduler AI</title>
+  <meta name="theme-color" content="#0B0A08">
+  <meta name="description" content="Warrior Scheduler AI — a disciplined daily mission planner, timer, and tracker.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Warrior Scheduler">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    :root{
+      --void:#0B0A08;
+      --char:#161310;
+      --panel:#1D1812;
+      --panel2:#241D15;
+      --blood:#8A1F1F;
+      --blood-bright:#C23434;
+      --gold:#C9A227;
+      --gold-bright:#EFC957;
+      --bone:#EDE4CC;
+      --ash:#948C79;
+      --border:rgba(201,162,39,0.22);
+      --border-strong:rgba(201,162,39,0.45);
+      --font-display: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'SFMono-Regular', Menlo, Consolas, 'Courier New', monospace;
+    }
+    *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+    html,body{margin:0;padding:0;background:var(--void);color:var(--bone);font-family:var(--font-body);
+      -webkit-font-smoothing:antialiased; overscroll-behavior:none;}
+    body{
+      background:
+        radial-gradient(ellipse at top, rgba(138,31,31,0.18), transparent 55%),
+        radial-gradient(ellipse at bottom, rgba(201,162,39,0.08), transparent 60%),
+        var(--void);
+      min-height:100vh;
+      padding-bottom:78px;
+    }
+    ::selection{background:var(--gold); color:var(--void);}
+    ::-webkit-scrollbar{width:6px; height:6px;}
+    ::-webkit-scrollbar-thumb{background:var(--border-strong); border-radius:4px;}
 
-  h1,h2,h3,.display{font-family:var(--font-display); letter-spacing:0.04em;}
-  .eyebrow{font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.18em; font-size:11px; color:var(--gold); opacity:0.85;}
+    h1,h2,h3,.display{font-family:var(--font-display); letter-spacing:0.04em;}
+    .eyebrow{font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.18em; font-size:11px; color:var(--gold); opacity:0.85;}
 
-  /* ---------- Top bar ---------- */
-  header.topbar{
-    position:sticky; top:0; z-index:40;
-    background:linear-gradient(180deg, rgba(11,10,8,0.97), rgba(11,10,8,0.9));
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(6px);
-    padding:14px 16px 12px;
-  }
-  .brand{display:flex; align-items:center; justify-content:space-between;}
-  .brand-mark{display:flex; align-items:center; gap:10px;}
-  .brand-mark .glyph{font-size:22px; filter:drop-shadow(0 0 6px rgba(201,162,39,0.5));}
-  .brand-name{font-family:var(--font-display); font-size:19px; letter-spacing:0.06em; color:var(--gold-bright);}
-  .brand-name small{display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.22em; color:var(--ash); text-transform:uppercase; margin-top:1px;}
-  .rank-seal{
-    width:40px;height:40px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 45%, #8a6c14 100%);
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-weight:700; color:var(--void); font-size:13px;
-    border:2px solid var(--void);
-    box-shadow:0 0 0 2px var(--border-strong), 0 2px 8px rgba(0,0,0,0.5);
-  }
+    /* ---------- Top bar ---------- */
+    header.topbar{
+      position:sticky; top:0; z-index:40;
+      background:linear-gradient(180deg, rgba(11,10,8,0.97), rgba(11,10,8,0.9));
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(6px);
+      padding:14px 16px 12px;
+    }
+    .brand{display:flex; align-items:center; justify-content:space-between; gap: 8px;}
+    .brand-mark{display:flex; align-items:center; gap:10px;}
+    .brand-mark .glyph{font-size:22px; filter:drop-shadow(0 0 6px rgba(201,162,39,0.5));}
+    .brand-name{font-family:var(--font-display); font-size:19px; letter-spacing:0.06em; color:var(--gold-bright);}
+    .brand-name small{display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.22em; color:var(--ash); text-transform:uppercase; margin-top:1px;}
+    .rank-seal{
+      width:40px;height:40px;border-radius:50%;
+      background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 45%, #8a6c14 100%);
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-mono); font-weight:700; color:var(--void); font-size:13px;
+      border:2px solid var(--void);
+      box-shadow:0 0 0 2px var(--border-strong), 0 2px 8px rgba(0,0,0,0.5);
+    }
 
-  main{max-width:640px; margin:0 auto; padding:16px;}
-  section{display:none;}
-  section.active{display:block; animation:fadeUp .35s ease;}
-  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+    main{max-width:640px; margin:0 auto; padding:16px;}
+    section{display:none;}
+    section.active{display:block; animation:fadeUp .35s ease;}
+    @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
 
-  .card{
-    background:linear-gradient(155deg, var(--panel), var(--panel2));
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:16px;
-    margin-bottom:14px;
-    position:relative;
-    overflow:hidden;
-  }
-  .card::before{
-    content:""; position:absolute; top:0; left:0; right:0; height:2px;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity:0.6;
-  }
-  .card h2{margin:0 0 12px; font-size:15px; color:var(--gold-bright); display:flex; align-items:center; gap:8px;}
-  .card h2 .n{font-family:var(--font-mono); font-size:11px; color:var(--blood-bright); border:1px solid var(--blood); padding:1px 6px; border-radius:20px;}
+    .card{
+      background:linear-gradient(155deg, var(--panel), var(--panel2));
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:16px;
+      margin-bottom:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity:0.6;
+    }
+    .card h2{margin:0 0 12px; font-size:15px; color:var(--gold-bright); display:flex; align-items:center; gap:8px;}
+    .card h2 .n{font-family:var(--font-mono); font-size:11px; color:var(--blood-bright); border:1px solid var(--blood); padding:1px 6px; border-radius:20px;}
 
-  /* ---------- Banner progress (signature element) ---------- */
-  .banner-wrap{margin:6px 0 4px;}
-  .banner-track{
-    position:relative; height:34px;
-    background:var(--char);
-    border:1px solid var(--border-strong);
-    clip-path:polygon(0 0,100% 0,97% 50%,100% 100%,0 100%,3% 50%);
-  }
-  .banner-fill{
-    height:100%; width:0%;
-    background:linear-gradient(90deg, var(--blood), var(--gold));
-    transition:width .6s cubic-bezier(.4,0,.2,1);
-  }
-  .banner-label{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; color:var(--bone);
-    text-shadow:0 1px 3px rgba(0,0,0,0.8);
-  }
-  .runes{display:flex; justify-content:space-between; margin-top:5px; padding:0 2px;}
-  .runes span{width:1px; height:5px; background:var(--border-strong);}
+    /* ---------- Banner progress (signature element) ---------- */
+    .banner-wrap{margin:6px 0 4px;}
+    .banner-track{
+      position:relative; height:34px;
+      background:var(--char);
+      border:1px solid var(--border-strong);
+      clip-path:polygon(0 0,100% 0,97% 50%,100% 100%,0 100%,3% 50%);
+    }
+    .banner-fill{
+      height:100%; width:0%;
+      background:linear-gradient(90deg, var(--blood), var(--gold));
+      transition:width .6s cubic-bezier(.4,0,.2,1);
+    }
+    .banner-label{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; color:var(--bone);
+      text-shadow:0 1px 3px rgba(0,0,0,0.8);
+    }
+    .runes{display:flex; justify-content:space-between; margin-top:5px; padding:0 2px;}
+    .runes span{width:1px; height:5px; background:var(--border-strong);}
 
-  .greet{font-family:var(--font-display); font-size:22px; color:var(--bone); margin:2px 0 2px;}
-  .subgreet{font-family:var(--font-mono); font-size:11px; color:var(--ash); letter-spacing:0.05em;}
-  .clock{font-family:var(--font-mono); font-size:32px; color:var(--gold-bright); letter-spacing:0.02em; margin-top:4px;}
+    .greet{font-family:var(--font-display); font-size:22px; color:var(--bone); margin:2px 0 2px;}
+    .subgreet{font-family:var(--font-mono); font-size:11px; color:var(--ash); letter-spacing:0.05em;}
+    .clock{font-family:var(--font-mono); font-size:32px; color:var(--gold-bright); letter-spacing:0.02em; margin-top:4px;}
 
-  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:14px;}
-  .stat{
-    background:var(--char); border:1px solid var(--border); border-radius:8px;
-    padding:10px 6px; text-align:center;
-  }
-  .stat .v{font-family:var(--font-mono); font-size:17px; color:var(--gold-bright); font-weight:700;}
-  .stat .l{font-size:9px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ash); margin-top:2px;}
+    .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:14px;}
+    .stat{
+      background:var(--char); border:1px solid var(--border); border-radius:8px;
+      padding:10px 6px; text-align:center;
+    }
+    .stat .v{font-family:var(--font-mono); font-size:17px; color:var(--gold-bright); font-weight:700;}
+    .stat .l{font-size:9px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ash); margin-top:2px;}
 
-  .quote-block{
-    border-left:3px solid var(--blood-bright); padding:8px 0 8px 12px; margin-top:4px;
-  }
-  .quote-block p{font-family:var(--font-display); font-style:italic; font-size:15px; margin:0; color:var(--bone); line-height:1.5;}
-  .quote-block .src{font-family:var(--font-mono); font-size:10px; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px; display:block;}
+    .quote-block{
+      border-left:3px solid var(--blood-bright); padding:8px 0 8px 12px; margin-top:4px;
+    }
+    .quote-block p{font-family:var(--font-display); font-style:italic; font-size:15px; margin:0; color:var(--bone); line-height:1.5;}
+    .quote-block .src{font-family:var(--font-mono); font-size:10px; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase; margin-top:6px; display:block;}
 
-  .next-task{display:flex; justify-content:space-between; align-items:center; margin-top:4px;}
-  .next-task .nt-name{font-size:15px; color:var(--bone); font-weight:600;}
-  .next-task .nt-sub{font-size:11px; color:var(--ash); margin-top:2px;}
-  .countdown{font-family:var(--font-mono); font-size:20px; color:var(--blood-bright); font-weight:700;}
+    .next-task{display:flex; justify-content:space-between; align-items:center; margin-top:4px;}
+    .next-task .nt-name{font-size:15px; color:var(--bone); font-weight:600;}
+    .next-task .nt-sub{font-size:11px; color:var(--ash); margin-top:2px;}
+    .countdown{font-family:var(--font-mono); font-size:20px; color:var(--blood-bright); font-weight:700;}
 
-  /* ---------- Buttons ---------- */
-  .btn{
-    font-family:var(--font-body); font-weight:600; font-size:13px;
-    border:1px solid var(--border-strong); background:var(--char); color:var(--bone);
-    padding:9px 14px; border-radius:7px; cursor:pointer; transition:.15s;
-    display:inline-flex; align-items:center; gap:6px;
-  }
-  .btn:active{transform:scale(0.97);}
-  .btn-gold{background:linear-gradient(155deg, var(--gold-bright), var(--gold)); color:var(--void); border:none;}
-  .btn-blood{background:linear-gradient(155deg, var(--blood-bright), var(--blood)); color:#fff; border:none;}
-  .btn-ghost{background:transparent;}
-  .btn-sm{padding:6px 10px; font-size:11px;}
-  .btn-block{width:100%; justify-content:center;}
-  .btn-row{display:flex; gap:8px; flex-wrap:wrap;}
+    /* ---------- Buttons ---------- */
+    .btn{
+      font-family:var(--font-body); font-weight:600; font-size:13px;
+      border:1px solid var(--border-strong); background:var(--char); color:var(--bone);
+      padding:9px 14px; border-radius:7px; cursor:pointer; transition:.15s;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn:active{transform:scale(0.97);}
+    .btn-gold{background:linear-gradient(155deg, var(--gold-bright), var(--gold)); color:var(--void); border:none;}
+    .btn-blood{background:linear-gradient(155deg, var(--blood-bright), var(--blood)); color:#fff; border:none;}
+    .btn-ghost{background:transparent;}
+    .btn-sm{padding:6px 10px; font-size:11px;}
+    .btn-block{width:100%; justify-content:center;}
+    .btn-row{display:flex; gap:8px; flex-wrap:wrap;}
 
-  input,select,textarea{
-    width:100%; background:var(--char); border:1px solid var(--border); color:var(--bone);
-    border-radius:7px; padding:9px 10px; font-size:13px; font-family:var(--font-body);
-    margin-bottom:9px;
-  }
-  input:focus,select:focus,textarea:focus{outline:none; border-color:var(--gold);}
-  label{font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ash); display:block; margin-bottom:4px;}
-  .field{margin-bottom:9px;}
-  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+    input,select,textarea{
+      width:100%; background:var(--char); border:1px solid var(--border); color:var(--bone);
+      border-radius:7px; padding:9px 10px; font-size:13px; font-family:var(--font-body);
+      margin-bottom:9px;
+    }
+    input:focus,select:focus,textarea:focus{outline:none; border-color:var(--gold);}
+    label{font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ash); display:block; margin-bottom:4px;}
+    .field{margin-bottom:9px;}
+    .field-row{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
 
-  /* ---------- Task list ---------- */
-  .task-item{
-    display:flex; gap:10px; align-items:flex-start;
-    background:var(--char); border:1px solid var(--border); border-left:3px solid var(--gold);
-    border-radius:8px; padding:11px; margin-bottom:8px;
-  }
-  .task-item.done{opacity:0.55; border-left-color:var(--ash);}
-  .task-item.done .t-name{text-decoration:line-through;}
-  .task-item.missed{border-left-color:var(--blood-bright);}
-  .t-check{
-    width:22px; height:22px; border-radius:50%; border:2px solid var(--gold); flex-shrink:0; margin-top:2px;
-    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; color:var(--gold-bright);
-  }
-  .task-item.done .t-check{background:var(--gold); color:var(--void);}
-  .t-body{flex:1; min-width:0;}
-  .t-top{display:flex; justify-content:space-between; gap:6px;}
-  .t-name{font-size:14px; font-weight:600; color:var(--bone);}
-  .t-time{font-family:var(--font-mono); font-size:11px; color:var(--gold); white-space:nowrap;}
-  .t-meta{font-size:11px; color:var(--ash); margin-top:3px;}
-  .t-tags{display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;}
-  .tag{font-size:9px; text-transform:uppercase; letter-spacing:0.05em; padding:2px 7px; border-radius:20px; border:1px solid var(--border-strong); color:var(--ash);}
-  .tag.pr-high{color:var(--blood-bright); border-color:var(--blood-bright);}
-  .tag.pr-medium{color:var(--gold);border-color:var(--gold);}
-  .t-actions{display:flex; gap:6px; margin-top:8px;}
-  .icon-btn{background:none; border:1px solid var(--border); color:var(--ash); border-radius:6px; padding:4px 8px; font-size:11px; cursor:pointer;}
-  .icon-btn:active{transform:scale(0.95);}
+    /* ---------- Task list ---------- */
+    .task-item{
+      display:flex; gap:10px; align-items:flex-start;
+      background:var(--char); border:1px solid var(--border); border-left:3px solid var(--gold);
+      border-radius:8px; padding:11px; margin-bottom:8px;
+    }
+    .task-item.done{opacity:0.55; border-left-color:var(--ash);}
+    .task-item.done .t-name{text-decoration:line-through;}
+    .task-item.missed{border-left-color:var(--blood-bright);}
+    .t-check{
+      width:22px; height:22px; border-radius:50%; border:2px solid var(--gold); flex-shrink:0; margin-top:2px;
+      display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; color:var(--gold-bright);
+    }
+    .task-item.done .t-check{background:var(--gold); color:var(--void);}
+    .t-body{flex:1; min-width:0;}
+    .t-top{display:flex; justify-content:space-between; gap:6px;}
+    .t-name{font-size:14px; font-weight:600; color:var(--bone);}
+    .t-time{font-family:var(--font-mono); font-size:11px; color:var(--gold); white-space:nowrap;}
+    .t-meta{font-size:11px; color:var(--ash); margin-top:3px;}
+    .t-tags{display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;}
+    .tag{font-size:9px; text-transform:uppercase; letter-spacing:0.05em; padding:2px 7px; border-radius:20px; border:1px solid var(--border-strong); color:var(--ash);}
+    .tag.pr-high{color:var(--blood-bright); border-color:var(--blood-bright);}
+    .tag.pr-medium{color:var(--gold);border-color:var(--gold);}
+    .t-actions{display:flex; gap:6px; margin-top:8px;}
+    .icon-btn{background:none; border:1px solid var(--border); color:var(--ash); border-radius:6px; padding:4px 8px; font-size:11px; cursor:pointer;}
+    .icon-btn:active{transform:scale(0.95);}
 
-  .empty{text-align:center; padding:30px 10px; color:var(--ash);}
-  .empty .glyph{font-size:30px; opacity:0.5; display:block; margin-bottom:8px;}
+    .empty{text-align:center; padding:30px 10px; color:var(--ash);}
+    .empty .glyph{font-size:30px; opacity:0.5; display:block; margin-bottom:8px;}
 
-  /* ---------- Bottom nav ---------- */
-  nav.tabbar{
-    position:fixed; bottom:0; left:0; right:0; z-index:50;
-    background:linear-gradient(0deg, var(--void) 70%, transparent);
-    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
-    border-top:1px solid var(--border);
-  }
-  .tabbar-inner{
-    max-width:640px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(5,1fr);
-    background:var(--char); border:1px solid var(--border); border-radius:14px; padding:5px;
-  }
-  .tab-btn{
-    background:none; border:none; color:var(--ash); font-family:var(--font-body);
-    display:flex; flex-direction:column; align-items:center; gap:2px; padding:7px 2px; border-radius:10px; cursor:pointer;
-  }
-  .tab-btn .g{font-size:18px;}
-  .tab-btn span.lbl{font-size:9px; text-transform:uppercase; letter-spacing:0.05em;}
-  .tab-btn.active{color:var(--gold-bright); background:rgba(201,162,39,0.1);}
+    /* ---------- Bottom nav ---------- */
+    nav.tabbar{
+      position:fixed; bottom:0; left:0; right:0; z-index:50;
+      background:linear-gradient(0deg, var(--void) 70%, transparent);
+      padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+      border-top:1px solid var(--border);
+    }
+    .tabbar-inner{
+      max-width:640px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(5,1fr);
+      background:var(--char); border:1px solid var(--border); border-radius:14px; padding:5px;
+    }
+    .tab-btn{
+      background:none; border:none; color:var(--ash); font-family:var(--font-body);
+      display:flex; flex-direction:column; align-items:center; gap:2px; padding:7px 2px; border-radius:10px; cursor:pointer;
+    }
+    .tab-btn .g{font-size:18px;}
+    .tab-btn span.lbl{font-size:9px; text-transform:uppercase; letter-spacing:0.05em;}
+    .tab-btn.active{color:var(--gold-bright); background:rgba(201,162,39,0.1);}
 
-  /* ---------- Timer ---------- */
-  .timer-tabs{display:flex; gap:6px; margin-bottom:14px;}
-  .timer-tabs .btn{flex:1; justify-content:center;}
-  .timer-tabs .btn.on{background:linear-gradient(155deg, var(--gold-bright), var(--gold)); color:var(--void); border:none;}
-  .timer-display{
-    text-align:center; padding:34px 10px; background:var(--char); border:1px solid var(--border-strong);
-    border-radius:12px; margin-bottom:14px; position:relative;
-  }
-  .timer-num{font-family:var(--font-mono); font-size:52px; color:var(--gold-bright); letter-spacing:0.02em; font-weight:700;}
-  .timer-state{font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--ash); margin-top:6px;}
-  .timer-controls{display:flex; gap:8px; justify-content:center;}
+    /* ---------- Timer ---------- */
+    .timer-tabs{display:flex; gap:6px; margin-bottom:14px;}
+    .timer-tabs .btn{flex:1; justify-content:center;}
+    .timer-tabs .btn.on{background:linear-gradient(155deg, var(--gold-bright), var(--gold)); color:var(--void); border:none;}
+    .timer-display{
+      text-align:center; padding:34px 10px; background:var(--char); border:1px solid var(--border-strong);
+      border-radius:12px; margin-bottom:14px; position:relative;
+    }
+    .timer-num{font-family:var(--font-mono); font-size:52px; color:var(--gold-bright); letter-spacing:0.02em; font-weight:700;}
+    .timer-state{font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--ash); margin-top:6px;}
+    .timer-controls{display:flex; gap:8px; justify-content:center;}
 
-  /* ---------- Tracking ---------- */
-  .trk-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-  .trk-item{background:var(--char); border:1px solid var(--border); border-radius:9px; padding:10px;}
-  .trk-item label{margin-bottom:6px;}
-  .trk-stepper{display:flex; align-items:center; justify-content:space-between;}
-  .trk-stepper button{width:28px; height:28px; border-radius:50%; border:1px solid var(--border-strong); background:var(--panel); color:var(--gold-bright); font-size:16px; cursor:pointer;}
-  .trk-stepper .val{font-family:var(--font-mono); font-size:16px; color:var(--bone);}
-  .mood-row{display:flex; gap:6px; justify-content:space-between;}
-  .mood-btn{flex:1; padding:8px 0; text-align:center; border-radius:8px; border:1px solid var(--border); background:var(--panel); cursor:pointer; font-size:16px;}
-  .mood-btn.sel{border-color:var(--gold); background:rgba(201,162,39,0.15);}
+    /* ---------- Tracking ---------- */
+    .trk-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .trk-item{background:var(--char); border:1px solid var(--border); border-radius:9px; padding:10px;}
+    .trk-item label{margin-bottom:6px;}
+    .trk-stepper{display:flex; align-items:center; justify-content:space-between;}
+    .trk-stepper button{width:28px; height:28px; border-radius:50%; border:1px solid var(--border-strong); background:var(--panel); color:var(--gold-bright); font-size:16px; cursor:pointer;}
+    .trk-stepper .val{font-family:var(--font-mono); font-size:16px; color:var(--bone);}
+    .mood-row{display:flex; gap:6px; justify-content:space-between;}
+    .mood-btn{flex:1; padding:8px 0; text-align:center; border-radius:8px; border:1px solid var(--border); background:var(--panel); cursor:pointer; font-size:16px;}
+    .mood-btn.sel{border-color:var(--gold); background:rgba(201,162,39,0.15);}
 
-  .bar-chart{display:flex; align-items:flex-end; gap:6px; height:90px; margin-top:6px;}
-  .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
-  .bar{width:100%; background:linear-gradient(180deg, var(--gold-bright), var(--blood)); border-radius:3px 3px 0 0; min-height:2px;}
-  .bar-lbl{font-size:9px; color:var(--ash); margin-top:4px;}
+    .bar-chart{display:flex; align-items:flex-end; gap:6px; height:90px; margin-top:6px;}
+    .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
+    .bar{width:100%; background:linear-gradient(180deg, var(--gold-bright), var(--blood)); border-radius:3px 3px 0 0; min-height:2px;}
+    .bar-lbl{font-size:9px; color:var(--ash); margin-top:4px;}
 
-  /* ---------- Quotes / journal ---------- */
-  .journal-q{font-size:13px; color:var(--bone); margin:10px 0 6px; font-weight:600;}
-  .rank-list{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
-  .rank-chip{font-family:var(--font-mono); font-size:10px; padding:5px 10px; border-radius:20px; border:1px solid var(--border); color:var(--ash);}
-  .rank-chip.on{color:var(--void); background:linear-gradient(155deg, var(--gold-bright), var(--gold)); border:none; font-weight:700;}
+    /* ---------- Quotes / journal ---------- */
+    .journal-q{font-size:13px; color:var(--bone); margin:10px 0 6px; font-weight:600;}
+    .rank-list{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+    .rank-chip{font-family:var(--font-mono); font-size:10px; padding:5px 10px; border-radius:20px; border:1px solid var(--border); color:var(--ash);}
+    .rank-chip.on{color:var(--void); background:linear-gradient(155deg, var(--gold-bright), var(--gold)); border:none; font-weight:700;}
 
-  .modal-bg{
-    position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:80; display:none;
-    align-items:flex-end; justify-content:center;
-  }
-  .modal-bg.show{display:flex; animation:fadeUp .2s ease;}
-  .modal{
-    background:var(--panel); border:1px solid var(--border-strong); border-top:2px solid var(--gold);
-    border-radius:16px 16px 0 0; width:100%; max-width:640px; max-height:88vh; overflow-y:auto;
-    padding:18px 16px calc(20px + env(safe-area-inset-bottom));
-  }
-  .modal h3{margin:0 0 14px; color:var(--gold-bright); font-size:17px;}
-  .modal-close{position:sticky; top:0; float:right; background:none; border:none; color:var(--ash); font-size:20px; cursor:pointer;}
+    .modal-bg{
+      position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:80; display:none;
+      align-items:flex-end; justify-content:center;
+    }
+    .modal-bg.show{display:flex; animation:fadeUp .2s ease;}
+    .modal{
+      background:var(--panel); border:1px solid var(--border-strong); border-top:2px solid var(--gold);
+      border-radius:16px 16px 0 0; width:100%; max-width:640px; max-height:88vh; overflow-y:auto;
+      padding:18px 16px calc(20px + env(safe-area-inset-bottom));
+    }
+    .modal h3{margin:0 0 14px; color:var(--gold-bright); font-size:17px;}
+    .modal-close{position:sticky; top:0; float:right; background:none; border:none; color:var(--ash); font-size:20px; cursor:pointer;}
 
-  .toast{
-    position:fixed; top:14px; left:50%; transform:translateX(-50%) translateY(-30px); z-index:100;
-    background:var(--panel); border:1px solid var(--gold); color:var(--bone); padding:10px 18px;
-    border-radius:30px; font-size:13px; opacity:0; transition:.3s; pointer-events:none; white-space:nowrap;
-  }
-  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+    .toast{
+      position:fixed; top:14px; left:50%; transform:translateX(-50%) translateY(-30px); z-index:100;
+      background:var(--panel); border:1px solid var(--gold); color:var(--bone); padding:10px 18px;
+      border-radius:30px; font-size:13px; opacity:0; transition:.3s; pointer-events:none; white-space:nowrap;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 
-  .search-row{display:flex; gap:8px; margin-bottom:12px;}
-  .search-row input{margin-bottom:0;}
-  .filter-row{display:flex; gap:6px; overflow-x:auto; margin-bottom:12px; padding-bottom:2px;}
-  .filter-chip{flex-shrink:0; font-size:11px; padding:6px 12px; border-radius:20px; border:1px solid var(--border); color:var(--ash); cursor:pointer; white-space:nowrap;}
-  .filter-chip.on{color:var(--void); background:linear-gradient(155deg, var(--gold-bright), var(--gold)); border:none;}
+    .search-row{display:flex; gap:8px; margin-bottom:12px;}
+    .search-row input{margin-bottom:0;}
+    .filter-row{display:flex; gap:6px; overflow-x:auto; margin-bottom:12px; padding-bottom:2px;}
+    .filter-chip{flex-shrink:0; font-size:11px; padding:6px 12px; border-radius:20px; border:1px solid var(--border); color:var(--ash); cursor:pointer; white-space:nowrap;}
+    .filter-chip.on{color:var(--void); background:linear-gradient(155deg, var(--gold-bright), var(--gold)); border:none;}
 
-  #alarmOverlay{
-    position:fixed; inset:0; background:linear-gradient(160deg, #2a0d0d, #0b0a08); z-index:200;
-    display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px;
-    animation:pulseBg 1.2s infinite alternate;
-  }
-  @keyframes pulseBg{from{background-color:#2a0d0d;} to{background-color:#160b0b;}}
-  #alarmOverlay.show{display:flex;}
-  #alarmOverlay .a-glyph{font-size:60px; margin-bottom:10px;}
-  #alarmOverlay h2{font-size:26px; color:var(--gold-bright); margin:0 0 6px;}
-  #alarmOverlay p{color:var(--bone); margin:0 0 26px;}
-  #alarmOverlay .btn-row{justify-content:center;}
-</style>
+    #alarmOverlay{
+      position:fixed; inset:0; background:linear-gradient(160deg, #2a0d0d, #0b0a08); z-index:200;
+      display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px;
+      animation:pulseBg 1.2s infinite alternate;
+    }
+    @keyframes pulseBg{from{background-color:#2a0d0d;} to{background-color:#160b0b;}}
+    #alarmOverlay.show{display:flex;}
+    #alarmOverlay .a-glyph{font-size:60px; margin-bottom:10px;}
+    #alarmOverlay h2{font-size:26px; color:var(--gold-bright); margin:0 0 6px;}
+    #alarmOverlay p{color:var(--bone); margin:0 0 26px;}
+    #alarmOverlay .btn-row{justify-content:center;}
+  </style>
 </head>
 <body>
 
@@ -310,6 +301,13 @@
       <span class="glyph">⚔️</span>
       <div class="brand-name">Warrior Scheduler<small>Discipline is the mission</small></div>
     </div>
+
+    <!-- Theme Switcher Dropdown -->
+    <select id="themeSelector" onchange="switchTheme(this.value)" style="width: auto; margin: 0; padding: 4px 8px; font-size: 11px;">
+      <option value="classic">Classic Theme</option>
+      <option value="modern">Modern Theme</option>
+    </select>
+
     <div class="rank-seal" id="rankSeal">1</div>
   </div>
 </header>
@@ -567,6 +565,7 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- APPLICATION CORE CODE -->
 <script>
 /* ===================== DATA LAYER ===================== */
 const DB_KEY = 'warriorSchedulerData_v1';
@@ -786,7 +785,6 @@ function runImport(){
   let lines = raw.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
   let added = 0;
   lines.forEach(line=>{
-    // strip csv/tab separators into spaces for uniform parsing, try JSON line too
     let l = line.replace(/^[-*\d.]+\s*/, '').replace(/[,\t]/g,' ');
     const times = [...l.matchAll(/\d{1,2}(?::\d{2})?\s*(?:AM|PM|am|pm)?/g)];
     if(times.length >= 2){
@@ -1133,7 +1131,6 @@ function renderTrack(){
     `<div class="mood-btn ${t.mood===i?'sel':''}" onclick="setMood(${i})">${m}</div>`
   ).join('');
 
-  // week bars: completed tasks per day for last 7 days
   const bars = [];
   for(let i=6;i>=0;i--){
     const d = new Date(); d.setDate(d.getDate()-i);
@@ -1174,41 +1171,14 @@ function init(){
   setInterval(scheduleNotifications, 5*60*1000);
 }
 init();
+</script>
 
-/* ===================== PWA / SERVICE WORKER ===================== */
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
-  });
-}
+<!-- EXTERNAL THEME SWITCHER FILE -->
+<script src="theme-switcher.js"></script>
 
-  // 1. Enables working date picker inside Android APK WebView
-  document.addEventListener("DOMContentLoaded", function () {
-    flatpickr("input[type=date]", {
-      dateFormat: "Y-m-d",
-      disableMobile: true // Forces JS date picker modal on Android
-    });
-  });
-
-  // 2. Checks GitHub/Host for live updates over network
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then((registration) => {
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
-            installingWorker.onstatechange = () => {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                window.location.reload(); // Instantly applies new code from GitHub
-              }
-            };
-          };
-        })
-        .catch((err) => console.error('Service Worker registration failed:', err));
-    });
-
-
-  // 1. Android Flatpickr date picker support
+<!-- HELPER & PWA SCRIPTS -->
+<script>
+  // Android WebView Flatpickr Fix
   document.addEventListener("DOMContentLoaded", function () {
     if (typeof flatpickr !== 'undefined') {
       flatpickr("input[type=date]", {
@@ -1218,43 +1188,7 @@ if('serviceWorker' in navigator){
     }
   });
 
-  // 2. User Theme Switcher Logic
-  function applyTheme(themeName) {
-    let themeLink = document.getElementById("modern-theme-link");
-
-    if (themeName === "modern") {
-      // If modern is selected and not loaded yet, inject modern-theme.css
-      if (!themeLink) {
-        themeLink = document.createElement("link");
-        themeLink.id = "modern-theme-link";
-        themeLink.rel = "stylesheet";
-        themeLink.href = "modern-theme.css"; // Ensure exact case match
-        document.head.appendChild(themeLink);
-      }
-    } else {
-      // If classic theme is selected, remove modern-theme.css
-      if (themeLink) {
-        themeLink.remove();
-      }
-    }
-    
-    // Save selection so it remembers user preference
-    localStorage.setItem("userSelectedTheme", themeName);
-  }
-
-  // Restore user theme preference when page loads
-  document.addEventListener("DOMContentLoaded", function () {
-    const savedTheme = localStorage.getItem("userSelectedTheme") || "classic";
-    
-    const selector = document.getElementById("themeSelector");
-    if (selector) {
-      selector.value = savedTheme;
-    }
-    
-    applyTheme(savedTheme);
-  });
-
-  // 3. Service Worker registration
+  // Service Worker for automatic updates
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./service-worker.js')
@@ -1271,58 +1205,9 @@ if('serviceWorker' in navigator){
         .catch((err) => console.error('Service worker registration failed:', err));
     });
   }
+</script>
 
-
-
-
-
-
-
-
-
-    
-  
-
-
-
-
-
-  
-
-
-  // Register Service Worker for auto-updates from GitHub/Netlify
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then((registration) => {
-          // Whenever you push a change to GitHub, this reloads the page with new code
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
-            installingWorker.onstatechange = () => {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                window.location.reload();
-              }
-            };
-          };
-        })
-        .catch((err) => console.error('Service worker registration failed:', err));
-    });
-  }
-  
-  document.addEventListener("DOMContentLoaded", function () {
-  if (!document.getElementById("modern-theme-link")) {
-    const link = document.createElement("link");
-    link.id = "modern-theme-link";
-    link.rel = "stylesheet";
-    link.href = "modern-theme.css"; // Ensure capital 'M' matches your file name!
-    document.head.appendChild(link);
-
-    <script src="theme-switcher.js"></script>
-  
-  }
-});</script>
-  
-  
-  
 </body>
 </html>
+
+```
