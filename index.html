@@ -1211,7 +1211,9 @@ if('serviceWorker' in navigator){
         .catch((err) => console.error('Service worker registration failed:', err));
     });
   }
-  </script>document.addEventListener("DOMContentLoaded", function () {
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
   if (!document.getElementById("modern-theme-link")) {
     const link = document.createElement("link");
     link.id = "modern-theme-link";
@@ -1219,7 +1221,7 @@ if('serviceWorker' in navigator){
     link.href = "modern-theme.css"; // Ensure capital 'M' matches your file name!
     document.head.appendChild(link);
   }
-});
+});</script>
   
   <script >src="theme-switcher.js"></script>
   
