@@ -1192,6 +1192,26 @@ if('serviceWorker' in navigator){
     });
   }
 </script>
+  <script>
+  // Register Service Worker for auto-updates from GitHub/Netlify
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then((registration) => {
+          // Whenever you push a change to GitHub, this reloads the page with new code
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            };
+          };
+        })
+        .catch((err) => console.error('Service worker registration failed:', err));
+    });
+  }
+  </script>
   
 </body>
 </html>
