@@ -2,6 +2,22 @@
 <html lang="en">
 <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">
+      <span class="glyph">⚔️</span>
+      <div class="brand-name">Warrior Scheduler<small>Discipline is the mission</small></div>
+    </div>
+    
+    <!-- Theme Switcher Selector -->
+    <select id="themeSelector" onchange="applyTheme(this.value)" style="width: auto; margin: 0; padding: 4px 8px; font-size: 11px;">
+      <option value="classic">Classic Theme</option>
+      <option value="modern">Modern Theme</option>
+    </select>
+
+    <div class="rank-seal" id="rankSeal">1</div>
+  </div>
+  </header>
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
@@ -1165,7 +1181,7 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('service-worker.js').catch(()=>{});
   });
 }
-</script><script>
+
   // 1. Enables working date picker inside Android APK WebView
   document.addEventListener("DOMContentLoaded", function () {
     flatpickr("input[type=date]", {
@@ -1190,9 +1206,90 @@ if('serviceWorker' in navigator){
         })
         .catch((err) => console.error('Service Worker registration failed:', err));
     });
+
+
+  // 1. Android Flatpickr date picker support
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof flatpickr !== 'undefined') {
+      flatpickr("input[type=date]", {
+        dateFormat: "Y-m-d",
+        disableMobile: true
+      });
+    }
+  });
+
+  // 2. User Theme Switcher Logic
+  function applyTheme(themeName) {
+    let themeLink = document.getElementById("modern-theme-link");
+
+    if (themeName === "modern") {
+      // If modern is selected and not loaded yet, inject modern-theme.css
+      if (!themeLink) {
+        themeLink = document.createElement("link");
+        themeLink.id = "modern-theme-link";
+        themeLink.rel = "stylesheet";
+        themeLink.href = "modern-theme.css"; // Ensure exact case match
+        document.head.appendChild(themeLink);
+      }
+    } else {
+      // If classic theme is selected, remove modern-theme.css
+      if (themeLink) {
+        themeLink.remove();
+      }
+    }
+    
+    // Save selection so it remembers user preference
+    localStorage.setItem("userSelectedTheme", themeName);
   }
-</script>
-  <script>
+
+  // Restore user theme preference when page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedTheme = localStorage.getItem("userSelectedTheme") || "classic";
+    
+    const selector = document.getElementById("themeSelector");
+    if (selector) {
+      selector.value = savedTheme;
+    }
+    
+    applyTheme(savedTheme);
+  });
+
+  // 3. Service Worker registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then((registration) => {
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            };
+          };
+        })
+        .catch((err) => console.error('Service worker registration failed:', err));
+    });
+  }
+
+
+
+
+
+
+
+
+
+    
+  
+
+
+
+
+
+  
+
+
   // Register Service Worker for auto-updates from GitHub/Netlify
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -1211,8 +1308,7 @@ if('serviceWorker' in navigator){
         .catch((err) => console.error('Service worker registration failed:', err));
     });
   }
-  </script>
-  <script>
+  
   document.addEventListener("DOMContentLoaded", function () {
   if (!document.getElementById("modern-theme-link")) {
     const link = document.createElement("link");
@@ -1220,10 +1316,13 @@ if('serviceWorker' in navigator){
     link.rel = "stylesheet";
     link.href = "modern-theme.css"; // Ensure capital 'M' matches your file name!
     document.head.appendChild(link);
+
+    <script src="theme-switcher.js"></script>
+  
   }
 });</script>
   
-  <script >src="theme-switcher.js"></script>
+  
   
 </body>
 </html>
