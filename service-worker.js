@@ -8,8 +8,9 @@ const ASSETS = [
   './icon-192.png',
   './icon-512.png',
   './apple-touch-icon.png',
-  './favicon-32.png'
-  './Modern-theme.css'
+  './favicon-32.png',
+  './Modern-theme.css',
+ './theme-switcher.js'
 ];
 
 self.addEventListener('install', (event) => {
