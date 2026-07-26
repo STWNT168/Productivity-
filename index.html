@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Warrior Scheduler AI</title>
@@ -1163,6 +1165,33 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('service-worker.js').catch(()=>{});
   });
 }
+</script><script>
+  // 1. Enables working date picker inside Android APK WebView
+  document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("input[type=date]", {
+      dateFormat: "Y-m-d",
+      disableMobile: true // Forces JS date picker modal on Android
+    });
+  });
+
+  // 2. Checks GitHub/Host for live updates over network
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then((registration) => {
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload(); // Instantly applies new code from GitHub
+              }
+            };
+          };
+        })
+        .catch((err) => console.error('Service Worker registration failed:', err));
+    });
+  }
 </script>
+  
 </body>
 </html>
