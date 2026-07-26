@@ -92,3 +92,15 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request)) // Fallback to offline cache if no internet
   );
 });
+
+// Dynamically attaches the modern-theme.css file on page load
+document.addEventListener("DOMContentLoaded", function () {
+  if (!document.getElementById("modern-theme-link")) {
+    const link = document.createElement("link");
+    link.id = "modern-theme-link";
+    link.rel = "stylesheet";
+    link.href = "modern-theme.css";
+    document.head.appendChild(link);
+  }
+});
+
